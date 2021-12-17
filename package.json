@@ -1,0 +1,18 @@
+{
+  "name": "swagger-doc-app",
+  "version": "1.0.0",
+  "description": "this app has been documented using swagger, a deep div to swagger doc ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Md Mozammil Anwar",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.2.0",
+    "yamljs": "^0.3.0"
+  }
+}

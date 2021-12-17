@@ -1,0 +1,229 @@
+openapi: "3.0.0"
+info: 
+  title: Documentation App 
+  description: This app is a deep dive of swagger documentation
+  version: 1.0.0
+  contact: 
+    url: "https://angular-prod-app.herokuapp.com/"
+    email: mdmozammilanwar@hotmail.com
+    
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: for local host
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+      protocol:
+        enum:
+          - https
+          - http
+        default: http
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer  
+
+paths:
+  /welcome:
+    get:
+      tags:
+        - String
+      summary: returns a greeting message from lco
+      responses:
+        200:
+          description: All good success
+          content:
+            application/json:
+              schema:
+                type: string
+                example: "mystring"
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+  /course:
+    get:
+      tags:
+        - Object
+      summary: returns unique course
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  course:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+  /courses:
+    get:
+      tags:
+        - Array
+      summary: returns array of course
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    course:
+                      type: string
+                    price:
+                      type: string
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+
+  /course/{courseId}:
+    get:
+      tags:
+        - String
+      summary: returns unique course
+      parameters:
+        - name : courseId
+          in: path
+          required: true
+          default: 101
+          schema:
+            type: string
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  course:
+                    type: string
+                  price:
+                    type: string
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+
+  /addCourse:
+    post:
+      tags:
+        - String
+      summary: add new course to the courses
+      consumes:
+        - application/json
+      produces:
+        - application/json 
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties: 
+                course_id:
+                  type: string
+                course:
+                  type: string
+                fee:
+                  type: string
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: string
+                
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+
+  /coursequery:
+    get:
+      tags:
+        - String
+      summary: try to learn query
+      parameters:
+        - name: location
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [delhi, london, Hyderabad]
+        - name: device
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [web,mobile]
+
+      responses:
+        200:
+          description: all good success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  location:
+                    type: string
+                  device:
+                    type: string
+        400:
+          description: Bad request
+        500: 
+          description: All good success
+
+  /courseupload:
+     post:
+      tags:
+        - String
+      summary: uploading course image
+      parameters:
+        - in: header
+          name: auth 
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+
+      responses:
+        200:
+          description: all good success
+        400:
+          description: Bad request
+        500: 
+          description: All good success
